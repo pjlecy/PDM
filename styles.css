@@ -355,6 +355,40 @@ body {
   line-height: 1.5;
 }
 
+.platform-panel {
+  gap: 12px;
+}
+
+.platform-panel__subtitle {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.platform-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.platform-pill {
+  border: 1px solid var(--border);
+  background: #f7f9fc;
+  padding: 14px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.platform-pill__title {
+  font-weight: 600;
+}
+
+.platform-pill__meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
 @media (max-width: 1100px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -389,5 +423,9 @@ body {
   .table__row {
     grid-template-columns: 1fr 1fr;
     gap: 6px;
+  }
+
+  .platform-panel__grid {
+    grid-template-columns: 1fr;
   }
 }
