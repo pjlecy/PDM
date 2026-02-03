@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SolidWorks-like PDM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand__logo">PDM</span>
+          <div>
+            <p class="brand__title">SolidWorks Vault</p>
+            <p class="brand__subtitle">Engineering data hub</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="nav__item nav__item--active">Dashboard</button>
+          <button class="nav__item">Projects</button>
+          <button class="nav__item">Vault Explorer</button>
+          <button class="nav__item">Change Requests</button>
+          <button class="nav__item">Reports</button>
+          <button class="nav__item">Admin</button>
+        </nav>
+        <div class="storage">
+          <p class="storage__label">Vault storage</p>
+          <div class="storage__bar">
+            <span style="width: 68%"></span>
+          </div>
+          <p class="storage__meta">6.2 TB of 9.1 TB used</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Product Data Management</h1>
+            <p>Centralize CAD files, revisions, and approvals across teams.</p>
+          </div>
+          <div class="topbar__actions">
+            <button class="button button--ghost">Sync CAD</button>
+            <button class="button button--primary">New Workflow</button>
+          </div>
+        </header>
+
+        <section class="hero">
+          <div class="hero__panel">
+            <h2>Quick actions</h2>
+            <div class="hero__grid">
+              <button class="card">
+                <span>Check-in batch</span>
+                <small>14 files ready</small>
+              </button>
+              <button class="card">
+                <span>Review changes</span>
+                <small>3 approvals pending</small>
+              </button>
+              <button class="card">
+                <span>Create ECO</span>
+                <small>Engineering change order</small>
+              </button>
+              <button class="card">
+                <span>Launch viewer</span>
+                <small>3D preview</small>
+              </button>
+            </div>
+          </div>
+          <div class="hero__panel hero__panel--chart">
+            <h2>Vault activity</h2>
+            <div class="chart">
+              <div class="chart__bar" style="--h: 52%"></div>
+              <div class="chart__bar" style="--h: 74%"></div>
+              <div class="chart__bar" style="--h: 62%"></div>
+              <div class="chart__bar" style="--h: 88%"></div>
+              <div class="chart__bar" style="--h: 46%"></div>
+              <div class="chart__bar" style="--h: 68%"></div>
+              <div class="chart__bar" style="--h: 80%"></div>
+            </div>
+            <div class="chart__legend">
+              <span>Revisions</span>
+              <span>Check-ins</span>
+              <span>Notifications</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Active projects</h3>
+              <button class="button button--small">View all</button>
+            </div>
+            <div class="table">
+              <div class="table__row table__row--header">
+                <span>Project</span>
+                <span>Status</span>
+                <span>Owner</span>
+                <span>Due</span>
+              </div>
+              <div class="table__row">
+                <span>EV Drivetrain Mk3</span>
+                <span class="status status--review">In review</span>
+                <span>J. Lim</span>
+                <span>Apr 28</span>
+              </div>
+              <div class="table__row">
+                <span>Packaging Line 12</span>
+                <span class="status status--active">Active</span>
+                <span>C. Patel</span>
+                <span>May 04</span>
+              </div>
+              <div class="table__row">
+                <span>Robotic Arm V2</span>
+                <span class="status status--hold">On hold</span>
+                <span>A. Rivera</span>
+                <span>May 18</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Recent file activity</h3>
+              <button class="button button--small">Open vault</button>
+            </div>
+            <div class="activity">
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Motor housing.sldprt</p>
+                  <p class="activity__meta">Checked in by J. Lim · Rev C</p>
+                </div>
+                <span class="status status--active">Approved</span>
+              </div>
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Assembly line layout.sldasm</p>
+                  <p class="activity__meta">Workflow update · 2 comments</p>
+                </div>
+                <span class="status status--review">Needs review</span>
+              </div>
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Cooling manifold.sldprt</p>
+                  <p class="activity__meta">Released to manufacturing</p>
+                </div>
+                <span class="status status--active">Released</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel sql-panel">
+          <div class="panel__header">
+            <h3>SQL vault snapshot</h3>
+            <a class="button button--small" href="vault.sql" download>Download SQL</a>
+          </div>
+          <p class="sql-panel__subtitle">
+            All recent files are captured in a SQL table so the vault can be hydrated quickly.
+          </p>
+          <pre><code>CREATE TABLE vault_files (
+  id INTEGER PRIMARY KEY,
+  file_name TEXT NOT NULL,
+  file_type TEXT NOT NULL,
+  revision TEXT NOT NULL,
+  status TEXT NOT NULL,
+  owner TEXT NOT NULL,
+  last_action TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last_action, updated_at) VALUES
+  (1, 'Motor housing', 'sldprt', 'C', 'Approved', 'J. Lim', 'Checked in', '2024-03-18 09:42'),
+  (2, 'Assembly line layout', 'sldasm', 'B', 'Needs review', 'C. Patel', 'Workflow update', '2024-03-18 10:15'),
+  (3, 'Cooling manifold', 'sldprt', 'A', 'Released', 'A. Rivera', 'Released to manufacturing', '2024-03-18 12:05');</code></pre>
+        </section>
+
+        <section class="panel platform-panel">
+          <div class="panel__header">
+            <h3>Cross-platform access</h3>
+            <span class="status status--active">Ready</span>
+          </div>
+          <p class="platform-panel__subtitle">
+            The vault client supports Windows, macOS, and Linux so teams can stay in sync across
+            every workstation.
+          </p>
+          <div class="platform-panel__grid">
+            <div class="platform-pill">
+              <span class="platform-pill__title">Windows</span>
+              <span class="platform-pill__meta">Native CAD integration</span>
+            </div>
+            <div class="platform-pill">
+              <span class="platform-pill__title">macOS</span>
+              <span class="platform-pill__meta">Design review ready</span>
+            </div>
+            <div class="platform-pill">
+              <span class="platform-pill__title">Linux</span>
+              <span class="platform-pill__meta">Automation workflows</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-grid">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Workflow & approvals</h3>
+              <span class="status status--review">2 pending</span>
+            </div>
+            <div class="workflow">
+              <div class="workflow__step workflow__step--done">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Design complete</p>
+                  <p class="workflow__meta">CAD released · Rev C</p>
+                </div>
+              </div>
+              <div class="workflow__step workflow__step--active">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Quality review</p>
+                  <p class="workflow__meta">Awaiting sign-off from QA</p>
+                </div>
+              </div>
+              <div class="workflow__step">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Manufacturing release</p>
+                  <p class="workflow__meta">Scheduled for Apr 22</p>
+                </div>
+              </div>
+            </div>
+            <div class="panel__actions">
+              <button class="button button--small">Review queue</button>
+              <button class="button button--ghost button--small">Edit workflow</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Vault explorer</h3>
+              <button class="button button--small">Open</button>
+            </div>
+            <div class="vault-list">
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Battery enclosure.sldasm</p>
+                  <p class="vault-item__meta">/EV Drivetrain/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev D</span>
+                  <span class="tag tag--success">Checked in</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Cooling plate.sldprt</p>
+                  <p class="vault-item__meta">/Thermal/Parts</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev B</span>
+                  <span class="tag tag--warning">Locked</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Harness routing.sldasm</p>
+                  <p class="vault-item__meta">/Harness/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev A</span>
+                  <span class="tag tag--info">In work</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Security & compliance</h3>
+              <span class="status status--active">Audit ready</span>
+            </div>
+            <div class="security-grid">
+              <div class="security-card">
+                <p class="security-card__title">Role-based access</p>
+                <p class="security-card__meta">28 roles · 6 departments</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Traceable revisions</p>
+                <p class="security-card__meta">Full ECO lineage stored</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Automated backups</p>
+                <p class="security-card__meta">15 min snapshot cadence</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Regulated exports</p>
+                <p class="security-card__meta">ITAR / ISO reports</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
