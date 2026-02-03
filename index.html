@@ -200,6 +200,106 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
             </div>
           </div>
         </section>
+
+        <section class="feature-grid">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Workflow & approvals</h3>
+              <span class="status status--review">2 pending</span>
+            </div>
+            <div class="workflow">
+              <div class="workflow__step workflow__step--done">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Design complete</p>
+                  <p class="workflow__meta">CAD released · Rev C</p>
+                </div>
+              </div>
+              <div class="workflow__step workflow__step--active">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Quality review</p>
+                  <p class="workflow__meta">Awaiting sign-off from QA</p>
+                </div>
+              </div>
+              <div class="workflow__step">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Manufacturing release</p>
+                  <p class="workflow__meta">Scheduled for Apr 22</p>
+                </div>
+              </div>
+            </div>
+            <div class="panel__actions">
+              <button class="button button--small">Review queue</button>
+              <button class="button button--ghost button--small">Edit workflow</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Vault explorer</h3>
+              <button class="button button--small">Open</button>
+            </div>
+            <div class="vault-list">
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Battery enclosure.sldasm</p>
+                  <p class="vault-item__meta">/EV Drivetrain/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev D</span>
+                  <span class="tag tag--success">Checked in</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Cooling plate.sldprt</p>
+                  <p class="vault-item__meta">/Thermal/Parts</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev B</span>
+                  <span class="tag tag--warning">Locked</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Harness routing.sldasm</p>
+                  <p class="vault-item__meta">/Harness/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev A</span>
+                  <span class="tag tag--info">In work</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Security & compliance</h3>
+              <span class="status status--active">Audit ready</span>
+            </div>
+            <div class="security-grid">
+              <div class="security-card">
+                <p class="security-card__title">Role-based access</p>
+                <p class="security-card__meta">28 roles · 6 departments</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Traceable revisions</p>
+                <p class="security-card__meta">Full ECO lineage stored</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Automated backups</p>
+                <p class="security-card__meta">15 min snapshot cadence</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Regulated exports</p>
+                <p class="security-card__meta">ITAR / ISO reports</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
     <script src="app.js"></script>
