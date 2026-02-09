@@ -1,0 +1,142 @@
+{
+  "kpis": [
+    {"label": "Check-ins today", "value": "46", "meta": "+12% vs. yesterday"},
+    {"label": "Overdue reviews", "value": "7", "meta": "4 over SLA"},
+    {"label": "Vault growth", "value": "+120 GB", "meta": "Last 30 days"},
+    {"label": "Active ECOs", "value": "13", "meta": "3 high priority"}
+  ],
+  "projects": [
+    {"name": "EV Drivetrain Mk3", "status": "In review", "owner": "J. Lim", "due": "Apr 28"},
+    {"name": "Packaging Line 12", "status": "Active", "owner": "C. Patel", "due": "May 04"},
+    {"name": "Robotic Arm V2", "status": "On hold", "owner": "A. Rivera", "due": "May 18"}
+  ],
+  "activity": [
+    {"title": "Motor housing.sldprt", "meta": "Checked in by J. Lim · Rev C", "status": "Approved"},
+    {"title": "Assembly line layout.sldasm", "meta": "Workflow update · 2 comments", "status": "Needs review"},
+    {"title": "Cooling manifold.sldprt", "meta": "Released to manufacturing", "status": "Released"}
+  ],
+  "workflow": [
+    {"title": "Design complete", "meta": "CAD released · Rev C", "state": "done"},
+    {"title": "Quality review", "meta": "Awaiting sign-off from QA", "state": "active"},
+    {"title": "Manufacturing release", "meta": "Scheduled for Apr 22", "state": ""}
+  ],
+  "ecos": [
+    {"title": "ECO-2219 · Battery enclosure", "priority": "High", "owner": "J. Lim", "due": "Apr 23"},
+    {"title": "ECO-2224 · Cooling plate", "priority": "Medium", "owner": "C. Patel", "due": "Apr 26"},
+    {"title": "ECO-2231 · Harness routing", "priority": "Low", "owner": "A. Rivera", "due": "May 02"}
+  ],
+  "releaseGates": [
+    {"label": "QA sign-off", "status": "In review"},
+    {"label": "Compliance check", "status": "Active"},
+    {"label": "Manufacturing release", "status": "On hold"}
+  ],
+  "sla": [
+    {"label": "Avg review time", "value": "16h", "meta": "Target 12h"},
+    {"label": "SLA breaches", "value": "3", "meta": "Last 7 days"},
+    {"label": "Pending > 48h", "value": "5", "meta": "Needs escalation"}
+  ],
+  "conflicts": [
+    {"title": "Motor housing.sldprt", "meta": "Locked by C. Patel · 3h", "severity": "Conflict"},
+    {"title": "Cooling plate.sldprt", "meta": "Branch mismatch · Rev B", "severity": "Conflict"},
+    {"title": "Harness routing.sldasm", "meta": "Pending merge · 2 edits", "severity": "Conflict"}
+  ],
+  "bom": [
+    {"title": "Battery enclosure", "count": 128, "updated": "Mar 18"},
+    {"title": "Cooling module", "count": 84, "updated": "Mar 16"},
+    {"title": "Harness assembly", "count": 52, "updated": "Mar 14"}
+  ],
+  "permissions": [
+    {"role": "Design Engineering", "access": "Create, Edit, Release"},
+    {"role": "Quality Assurance", "access": "Review, Approve"},
+    {"role": "Manufacturing", "access": "Read, BOM export"},
+    {"role": "Suppliers", "access": "Read-only"}
+  ],
+  "diffSummary": [
+    {"file": "Battery enclosure.sldasm", "summary": "+12 sketches · -3 features"},
+    {"file": "Cooling plate.sldprt", "summary": "+4 fillets · +2 holes"},
+    {"file": "Harness routing.sldasm", "summary": "+6 clips · +1 connector"}
+  ],
+  "viewer": {
+    "title": "Battery enclosure preview",
+    "thumbnail": "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80",
+    "meta": "Interactive preview ready · Updated 2 hours ago"
+  },
+  "vault": [
+    {
+      "id": "vault-001",
+      "name": "Battery enclosure",
+      "type": "sldasm",
+      "revision": "D",
+      "status": "Approved",
+      "owner": "J. Lim",
+      "path": "/EV Drivetrain/Assemblies",
+      "lastAction": "Checked in",
+      "fileSize": "42 MB",
+      "lastReviewer": "L. Chen",
+      "eco": "ECO-2219",
+      "history": [
+        "Rev D · Approved · 2024-03-18",
+        "Rev C · QA review · 2024-03-10",
+        "Rev B · Prototype build · 2024-02-27"
+      ],
+      "approvals": [
+        "QA: L. Chen", "Manufacturing: R. Gomez"
+      ]
+    },
+    {
+      "id": "vault-002",
+      "name": "Cooling plate",
+      "type": "sldprt",
+      "revision": "B",
+      "status": "Locked",
+      "owner": "C. Patel",
+      "path": "/Thermal/Parts",
+      "lastAction": "Locked for review",
+      "fileSize": "18 MB",
+      "lastReviewer": "J. Lim",
+      "eco": "ECO-2224",
+      "history": [
+        "Rev B · Locked · 2024-03-15",
+        "Rev A · Released · 2024-03-01"
+      ],
+      "approvals": [
+        "QA: Pending", "Design: J. Lim"
+      ]
+    },
+    {
+      "id": "vault-003",
+      "name": "Harness routing",
+      "type": "sldasm",
+      "revision": "A",
+      "status": "In work",
+      "owner": "A. Rivera",
+      "path": "/Harness/Assemblies",
+      "lastAction": "In progress",
+      "fileSize": "9 MB",
+      "lastReviewer": "N/A",
+      "eco": "ECO-2231",
+      "history": [
+        "Rev A · In work · 2024-03-20"
+      ],
+      "approvals": [
+        "Design: Pending"
+      ]
+    }
+  ],
+  "security": [
+    {"title": "Role-based access", "meta": "28 roles · 6 departments"},
+    {"title": "Traceable revisions", "meta": "Full ECO lineage stored"},
+    {"title": "Automated backups", "meta": "15 min snapshot cadence"},
+    {"title": "Regulated exports", "meta": "ITAR / ISO reports"}
+  ],
+  "timeline": [
+    {"title": "Rev A released", "meta": "Initial prototype release · 2024-02-21"},
+    {"title": "Rev B QA review", "meta": "QA checkpoint complete · 2024-03-02"},
+    {"title": "Rev C manufacturing signoff", "meta": "Manufacturing approval · 2024-03-12"}
+  ],
+  "audit": [
+    {"title": "J. Lim checked in Battery enclosure.sldasm", "meta": "Approved · 18 minutes ago"},
+    {"title": "QA completed review for Cooling plate.sldprt", "meta": "Needs review · 52 minutes ago"},
+    {"title": "A. Rivera submitted Harness routing.sldasm", "meta": "In work · 2 hours ago"}
+  ]
+}
