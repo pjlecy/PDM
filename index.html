@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SolidWorks-like PDM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand__logo">PDM</span>
+          <div>
+            <p class="brand__title">SolidWorks Vault</p>
+            <p class="brand__subtitle">Engineering data hub</p>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary navigation">
+          <button class="nav__item nav__item--active" data-page="dashboard">Dashboard</button>
+          <button class="nav__item" data-page="projects">Projects</button>
+          <button class="nav__item" data-page="vault">Vault Explorer</button>
+          <button class="nav__item" data-page="changes">Change Requests</button>
+          <button class="nav__item" data-page="reports">Reports</button>
+          <button class="nav__item" data-page="admin">Admin</button>
+          <button class="nav__item" data-page="installer">Installer</button>
+        </nav>
+        <div class="storage">
+          <p class="storage__label">Vault storage</p>
+          <div class="storage__bar">
+            <span style="width: 68%"></span>
+          </div>
+          <p class="storage__meta">6.2 TB of 9.1 TB used</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Product Data Management</h1>
+            <p>Centralize CAD files, revisions, and approvals across teams.</p>
+          </div>
+          <div class="topbar__actions">
+            <label class="search" aria-label="Search vault">
+              <span>Search</span>
+              <input type="search" id="vault-search" placeholder="Search files, projects, owners" />
+            </label>
+            <button class="button button--ghost" id="mode-toggle" type="button" aria-pressed="false">Basic mode</button>
+            <button class="button button--ghost">Sync CAD</button>
+            <button class="button button--primary">New Workflow</button>
+          </div>
+        </header>
+        <div class="status-bar">
+          <span class="status-chip status-chip--live">Live sync</span>
+          <span class="status-chip">Vault health: 98%</span>
+          <span class="status-chip">Secure mode</span>
+          <span class="status-chip">Next backup: 15 min</span>
+        </div>
+
+        <div class="banner" id="data-banner" role="status" hidden>
+          <strong>Data unavailable.</strong> Using fallback values until the vault service reconnects.
+        </div>
+
+        <section class="kpi-strip" data-page="dashboard">
+          <div class="skeleton" data-skeleton>
+            <div class="skeleton__line"></div>
+            <div class="skeleton__line"></div>
+            <div class="skeleton__line"></div>
+          </div>
+          <div class="kpi-grid" id="kpi-grid"></div>
+        </section>
+
+        <section class="hero" data-page="dashboard">
+          <div class="hero__panel">
+            <h2>Quick actions</h2>
+            <div class="hero__grid">
+              <button class="card">
+                <span>Check-in batch</span>
+                <small>14 files ready</small>
+              </button>
+              <button class="card">
+                <span>Review changes</span>
+                <small>3 approvals pending</small>
+              </button>
+              <button class="card">
+                <span>Create ECO</span>
+                <small>Engineering change order</small>
+              </button>
+              <button class="card">
+                <span>Launch viewer</span>
+                <small>3D preview</small>
+              </button>
+            </div>
+          </div>
+          <div class="hero__panel hero__panel--chart">
+            <h2>Vault activity</h2>
+            <div class="chart">
+              <div class="chart__bar" style="--h: 52%"></div>
+              <div class="chart__bar" style="--h: 74%"></div>
+              <div class="chart__bar" style="--h: 62%"></div>
+              <div class="chart__bar" style="--h: 88%"></div>
+              <div class="chart__bar" style="--h: 46%"></div>
+              <div class="chart__bar" style="--h: 68%"></div>
+              <div class="chart__bar" style="--h: 80%"></div>
+            </div>
+            <div class="chart__legend">
+              <span>Revisions</span>
+              <span>Check-ins</span>
+              <span>Notifications</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-grid" data-page="dashboard">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Active projects</h3>
+              <button class="button button--small">View all</button>
+            </div>
+            <div class="table" role="table" aria-label="Active projects">
+              <div class="table__row table__row--header" role="row">
+                <button class="sort" type="button" data-sort="name">Project</button>
+                <button class="sort" type="button" data-sort="status">Status</button>
+                <button class="sort" type="button" data-sort="owner">Owner</button>
+                <button class="sort" type="button" data-sort="due">Due</button>
+              </div>
+              <div class="skeleton" data-skeleton>
+                <div class="skeleton__line"></div>
+                <div class="skeleton__line"></div>
+                <div class="skeleton__line"></div>
+              </div>
+              <div class="table__body" id="project-rows" role="rowgroup"></div>
+              <p class="empty-state" id="project-empty" hidden>No active projects found. <button class="link-button" type="button">Connect project source</button></p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Recent file activity</h3>
+              <button class="button button--small">Open vault</button>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="activity" id="activity-list" role="list"></div>
+            <p class="empty-state" id="activity-empty" hidden>No recent activity. <button class="link-button" type="button">Import sample activity</button></p>
+          </div>
+        </section>
+
+        <section class="feature-grid advanced-only" data-page="dashboard">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>ECO queue</h3>
+              <span class="status status--review">Priority</span>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="eco-list" id="eco-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Release gates</h3>
+              <span class="status status--active">Tracking</span>
+            </div>
+            <div class="release-gates" id="release-gates"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>SLA timers</h3>
+              <span class="status status--review">Live</span>
+            </div>
+            <div class="sla-grid" id="sla-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel sql-panel" data-page="dashboard">
+          <div class="panel__header">
+            <h3>SQL vault snapshot</h3>
+            <a class="button button--small" href="vault.sql" download>Download SQL</a>
+          </div>
+          <p class="sql-panel__subtitle">
+            All recent files are captured in a SQL table so the vault can be hydrated quickly.
+          </p>
+          <pre><code>CREATE TABLE vault_files (
+  id INTEGER PRIMARY KEY,
+  file_name TEXT NOT NULL,
+  file_type TEXT NOT NULL,
+  revision TEXT NOT NULL,
+  status TEXT NOT NULL,
+  owner TEXT NOT NULL,
+  last_action TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last_action, updated_at) VALUES
+  (1, 'Motor housing', 'sldprt', 'C', 'Approved', 'J. Lim', 'Checked in', '2024-03-18 09:42'),
+  (2, 'Assembly line layout', 'sldasm', 'B', 'Needs review', 'C. Patel', 'Workflow update', '2024-03-18 10:15'),
+  (3, 'Cooling manifold', 'sldprt', 'A', 'Released', 'A. Rivera', 'Released to manufacturing', '2024-03-18 12:05');</code></pre>
+        </section>
+
+        <section class="panel platform-panel" data-page="dashboard">
+          <div class="panel__header">
+            <h3>Cross-platform access</h3>
+            <span class="status status--active">Ready</span>
+          </div>
+          <p class="platform-panel__subtitle">
+            The vault client supports Windows, macOS, and Linux so teams can stay in sync across
+            every workstation.
+          </p>
+          <div class="platform-panel__grid">
+            <div class="platform-pill">
+              <span class="platform-pill__title">Windows</span>
+              <span class="platform-pill__meta">Native CAD integration</span>
+            </div>
+            <div class="platform-pill">
+              <span class="platform-pill__title">macOS</span>
+              <span class="platform-pill__meta">Design review ready</span>
+            </div>
+            <div class="platform-pill">
+              <span class="platform-pill__title">Linux</span>
+              <span class="platform-pill__meta">Automation workflows</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-grid" data-page="dashboard">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Workflow & approvals</h3>
+              <span class="status status--review" id="workflow-status">2 pending</span>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="workflow" id="workflow-steps"></div>
+            <div class="panel__actions">
+              <button class="button button--small">Review queue</button>
+              <button class="button button--ghost button--small">Edit workflow</button>
+            </div>
+          </div>
+
+          <div class="panel installer-panel">
+            <div class="panel__header">
+              <h3>Installer packages</h3>
+              <span class="status status--active">Ready</span>
+            </div>
+            <p class="installer-panel__subtitle">
+              Use the installer that matches your workstation to deploy the PDM client quickly.
+            </p>
+            <div class="installer-panel__actions">
+              <a class="button button--small" href="install.sh" download>macOS / Linux</a>
+              <a class="button button--small" href="install.ps1" download>Windows (PowerShell)</a>
+            </div>
+            <pre class="installer-panel__code"><code>bash install.sh
+powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
+            <div class="installer-panel__meta">
+              <p>Current version: <strong>v4.8.2</strong></p>
+              <p>SHA256: <strong>6e9f…b1a7</strong></p>
+              <p>Scripts register the vault client, sync tools, and background services.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Vault explorer</h3>
+              <button class="button button--small">Open</button>
+            </div>
+            <div class="filter-pills" role="group" aria-label="Vault status filters">
+              <button class="pill pill--active" data-filter="all">All</button>
+              <button class="pill" data-filter="Approved">Approved</button>
+              <button class="pill" data-filter="Needs review">Needs review</button>
+              <button class="pill" data-filter="Locked">Locked</button>
+              <button class="pill" data-filter="In work">In work</button>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="vault-list" id="vault-list"></div>
+            <p class="empty-state" id="vault-empty" hidden>No vault files match this filter. <button class="link-button" type="button">Reset filters</button></p>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Security & compliance</h3>
+              <span class="status status--active">Audit ready</span>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="security-grid" id="security-grid"></div>
+          </div>
+        </section>
+
+        <section class="feature-grid advanced-only" data-page="dashboard">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Conflict alerts</h3>
+              <span class="status status--review">3 open</span>
+            </div>
+            <div class="conflict-list" id="conflict-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>BOM snapshot</h3>
+              <span class="status status--active">Updated</span>
+            </div>
+            <div class="bom" id="bom-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Permissions</h3>
+              <span class="status status--active">Roles</span>
+            </div>
+            <div class="permission-grid" id="permission-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel timeline-panel" data-page="dashboard">
+          <div class="panel__header">
+            <h3>Revision timeline</h3>
+            <span class="status status--active">Tracked</span>
+          </div>
+          <div class="skeleton" data-skeleton>
+            <div class="skeleton__line"></div>
+            <div class="skeleton__line"></div>
+          </div>
+          <div class="timeline" id="revision-timeline"></div>
+        </section>
+
+        <section class="feature-grid advanced-only" data-page="dashboard">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Revision diff summary</h3>
+              <span class="status status--review">Highlights</span>
+            </div>
+            <div class="diff-summary" id="diff-summary"></div>
+          </div>
+
+          <div class="panel viewer-panel">
+            <div class="panel__header">
+              <h3>Viewer preview</h3>
+              <button class="button button--small">Open 3D viewer</button>
+            </div>
+            <div class="viewer-preview" id="viewer-preview"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Audit log</h3>
+              <div class="panel__actions">
+                <button class="button button--small">Export CSV</button>
+                <button class="button button--ghost button--small">Build report</button>
+              </div>
+            </div>
+            <div class="skeleton" data-skeleton>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+              <div class="skeleton__line"></div>
+            </div>
+            <div class="audit" id="audit-log"></div>
+          </div>
+        </section>
+
+        <section class="panel placeholder" data-page="projects" hidden>
+          <h2>Projects</h2>
+          <p class="empty-state">No project data connected yet. Attach a data source to enable this view.</p>
+        </section>
+        <section class="panel placeholder" data-page="vault" hidden>
+          <h2>Vault Explorer</h2>
+          <p class="empty-state">Vault browsing is loading. Connect your vault to populate files.</p>
+        </section>
+        <section class="panel placeholder" data-page="changes" hidden>
+          <h2>Change Requests</h2>
+          <p class="empty-state">No change requests in the queue.</p>
+        </section>
+        <section class="panel placeholder" data-page="reports" hidden>
+          <h2>Reports</h2>
+          <p class="empty-state">Reporting will appear once analytics are enabled.</p>
+        </section>
+        <section class="panel placeholder" data-page="admin" hidden>
+          <h2>Administration</h2>
+          <p class="empty-state">Configure permissions and integrations here.</p>
+        </section>
+        <section class="panel installer-page" data-page="installer" hidden>
+          <div class="panel__header">
+            <h2>Installer center</h2>
+            <button class="button button--small">View release notes</button>
+          </div>
+          <p class="installer-page__subtitle">
+            Deploy the PDM client across Windows, macOS, and Linux with consistent tooling.
+          </p>
+          <div class="installer-page__grid">
+            <div class="installer-card">
+              <h3>macOS / Linux</h3>
+              <p>Recommended for engineering workstations.</p>
+              <p class="installer-card__meta">Prerequisite: sqlite3 must be available in PATH.</p>
+              <a class="button button--small" href="install.sh" download>Download install.sh</a>
+              <pre><code>bash install.sh</code></pre>
+            </div>
+            <div class="installer-card">
+              <h3>Windows PowerShell</h3>
+              <p>Deploy via device management or local admin.</p>
+              <p class="installer-card__meta">Prerequisite: sqlite3 must be available in PATH.</p>
+              <a class="button button--small" href="install.ps1" download>Download install.ps1</a>
+              <pre><code>powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
+            </div>
+            <div class="installer-card">
+              <h3>Silent install</h3>
+              <p>Use for automated rollouts and VDI images.</p>
+              <p class="installer-card__meta">Runs local SQL bootstrap from vault.sql.</p>
+              <pre><code>install.sh --silent --vault=https://vault.local</code></pre>
+              <p class="installer-card__meta">Logs stored in /var/log/pdm-install.log</p>
+            </div>
+          </div>
+          <div class="installer-page__grid">
+            <div class="installer-card">
+              <h3>Quick setup checklist</h3>
+              <ul class="checklist" id="quick-checklist">
+                <li><input type="checkbox" /> Install client package</li>
+                <li><input type="checkbox" /> Initialize local vault.db</li>
+                <li><input type="checkbox" /> Verify sync status</li>
+                <li><input type="checkbox" /> Open Dashboard</li>
+              </ul>
+            </div>
+            <div class="installer-card">
+              <h3>Run diagnostics</h3>
+              <p>Validate prerequisites and local setup in one click.</p>
+              <button class="button button--small" id="run-diagnostics" type="button">Run diagnostics</button>
+              <div class="diagnostics" id="diagnostics-output">No diagnostics run yet.</div>
+              <p class="installer-card__meta">Diagnostics validate installer assets and data sources in this workspace.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="drawer" id="file-drawer" aria-hidden="true">
+      <div class="drawer__overlay" data-close></div>
+      <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+        <header class="drawer__header">
+          <div>
+            <h2 id="drawer-title">File details</h2>
+            <p id="drawer-subtitle" class="drawer__subtitle"></p>
+          </div>
+          <button class="button button--ghost" data-close>Close</button>
+        </header>
+        <div class="drawer__content">
+          <div class="drawer__section">
+            <h3>Metadata</h3>
+            <ul class="drawer__list" id="drawer-meta"></ul>
+          </div>
+          <div class="drawer__section">
+            <h3>Revision history</h3>
+            <ul class="drawer__list" id="drawer-history"></ul>
+          </div>
+          <div class="drawer__section">
+            <h3>Approvals</h3>
+            <ul class="drawer__list" id="drawer-approvals"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
