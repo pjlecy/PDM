@@ -607,3 +607,5 @@ fetch('data.json')
   .finally(() => {
     setSkeletons(false);
   });
+  });
+});

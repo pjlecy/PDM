@@ -21,6 +21,7 @@
 
 body {
   background: radial-gradient(circle at top, #eef3fb 0%, var(--bg) 45%, #f2f6fb 100%);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -547,6 +548,7 @@ body {
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 

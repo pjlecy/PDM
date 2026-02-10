@@ -24,6 +24,13 @@
           <button class="nav__item" data-page="reports">Reports</button>
           <button class="nav__item" data-page="admin">Admin</button>
           <button class="nav__item" data-page="installer">Installer</button>
+        <nav class="nav">
+          <button class="nav__item nav__item--active">Dashboard</button>
+          <button class="nav__item">Projects</button>
+          <button class="nav__item">Vault Explorer</button>
+          <button class="nav__item">Change Requests</button>
+          <button class="nav__item">Reports</button>
+          <button class="nav__item">Admin</button>
         </nav>
         <div class="storage">
           <p class="storage__label">Vault storage</p>
@@ -71,6 +78,8 @@
         </section>
 
         <section class="hero" data-page="dashboard">
+
+        <section class="hero">
           <div class="hero__panel">
             <h2>Quick actions</h2>
             <div class="hero__grid">
@@ -112,6 +121,7 @@
         </section>
 
         <section class="content-grid" data-page="dashboard">
+        <section class="content-grid">
           <div class="panel">
             <div class="panel__header">
               <h3>Active projects</h3>
@@ -131,6 +141,31 @@
               </div>
               <div class="table__body" id="project-rows" role="rowgroup"></div>
               <p class="empty-state" id="project-empty" hidden>No active projects found. <button class="link-button" type="button">Connect project source</button></p>
+            <div class="table">
+              <div class="table__row table__row--header">
+                <span>Project</span>
+                <span>Status</span>
+                <span>Owner</span>
+                <span>Due</span>
+              </div>
+              <div class="table__row">
+                <span>EV Drivetrain Mk3</span>
+                <span class="status status--review">In review</span>
+                <span>J. Lim</span>
+                <span>Apr 28</span>
+              </div>
+              <div class="table__row">
+                <span>Packaging Line 12</span>
+                <span class="status status--active">Active</span>
+                <span>C. Patel</span>
+                <span>May 04</span>
+              </div>
+              <div class="table__row">
+                <span>Robotic Arm V2</span>
+                <span class="status status--hold">On hold</span>
+                <span>A. Rivera</span>
+                <span>May 18</span>
+              </div>
             </div>
           </div>
 
@@ -180,6 +215,33 @@
         </section>
 
         <section class="panel sql-panel" data-page="dashboard">
+            <div class="activity">
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Motor housing.sldprt</p>
+                  <p class="activity__meta">Checked in by J. Lim · Rev C</p>
+                </div>
+                <span class="status status--active">Approved</span>
+              </div>
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Assembly line layout.sldasm</p>
+                  <p class="activity__meta">Workflow update · 2 comments</p>
+                </div>
+                <span class="status status--review">Needs review</span>
+              </div>
+              <div class="activity__item">
+                <div>
+                  <p class="activity__title">Cooling manifold.sldprt</p>
+                  <p class="activity__meta">Released to manufacturing</p>
+                </div>
+                <span class="status status--active">Released</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel sql-panel">
           <div class="panel__header">
             <h3>SQL vault snapshot</h3>
             <a class="button button--small" href="vault.sql" download>Download SQL</a>
@@ -205,6 +267,7 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
         </section>
 
         <section class="panel platform-panel" data-page="dashboard">
+        <section class="panel platform-panel">
           <div class="panel__header">
             <h3>Cross-platform access</h3>
             <span class="status status--active">Ready</span>
@@ -241,6 +304,35 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
               <div class="skeleton__line"></div>
             </div>
             <div class="workflow" id="workflow-steps"></div>
+        <section class="feature-grid">
+          <div class="panel">
+            <div class="panel__header">
+              <h3>Workflow & approvals</h3>
+              <span class="status status--review">2 pending</span>
+            </div>
+            <div class="workflow">
+              <div class="workflow__step workflow__step--done">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Design complete</p>
+                  <p class="workflow__meta">CAD released · Rev C</p>
+                </div>
+              </div>
+              <div class="workflow__step workflow__step--active">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Quality review</p>
+                  <p class="workflow__meta">Awaiting sign-off from QA</p>
+                </div>
+              </div>
+              <div class="workflow__step">
+                <span class="workflow__dot"></span>
+                <div>
+                  <p class="workflow__title">Manufacturing release</p>
+                  <p class="workflow__meta">Scheduled for Apr 22</p>
+                </div>
+              </div>
+            </div>
             <div class="panel__actions">
               <button class="button button--small">Review queue</button>
               <button class="button button--ghost button--small">Edit workflow</button>
@@ -287,6 +379,38 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
             </div>
             <div class="vault-list" id="vault-list"></div>
             <p class="empty-state" id="vault-empty" hidden>No vault files match this filter. <button class="link-button" type="button">Reset filters</button></p>
+            <div class="vault-list">
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Battery enclosure.sldasm</p>
+                  <p class="vault-item__meta">/EV Drivetrain/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev D</span>
+                  <span class="tag tag--success">Checked in</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Cooling plate.sldprt</p>
+                  <p class="vault-item__meta">/Thermal/Parts</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev B</span>
+                  <span class="tag tag--warning">Locked</span>
+                </div>
+              </div>
+              <div class="vault-item">
+                <div>
+                  <p class="vault-item__title">Harness routing.sldasm</p>
+                  <p class="vault-item__meta">/Harness/Assemblies</p>
+                </div>
+                <div class="vault-item__tags">
+                  <span class="tag">Rev A</span>
+                  <span class="tag tag--info">In work</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="panel">
@@ -441,6 +565,23 @@ powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
               <button class="button button--small" id="run-diagnostics" type="button">Run diagnostics</button>
               <div class="diagnostics" id="diagnostics-output">No diagnostics run yet.</div>
               <p class="installer-card__meta">Diagnostics validate installer assets and data sources in this workspace.</p>
+            <div class="security-grid">
+              <div class="security-card">
+                <p class="security-card__title">Role-based access</p>
+                <p class="security-card__meta">28 roles · 6 departments</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Traceable revisions</p>
+                <p class="security-card__meta">Full ECO lineage stored</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Automated backups</p>
+                <p class="security-card__meta">15 min snapshot cadence</p>
+              </div>
+              <div class="security-card">
+                <p class="security-card__title">Regulated exports</p>
+                <p class="security-card__meta">ITAR / ISO reports</p>
+              </div>
             </div>
           </div>
         </section>
