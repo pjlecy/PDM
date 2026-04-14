@@ -3,65 +3,69 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="SolidWorks-like Product Data Management dashboard for centralizing CAD files, revisions, and approvals." />
+    <meta name="theme-color" content="#0b1c2d" />
     <title>SolidWorks-like PDM</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <div class="app-shell">
-      <aside class="sidebar">
+      <aside class="sidebar" aria-label="Primary navigation">
         <div class="brand">
-          <span class="brand__logo">PDM</span>
+          <span class="brand__logo" aria-hidden="true">PDM</span>
           <div>
             <p class="brand__title">SolidWorks Vault</p>
             <p class="brand__subtitle">Engineering data hub</p>
           </div>
         </div>
-        <nav class="nav">
-          <button class="nav__item nav__item--active">Dashboard</button>
+        <nav class="nav" aria-label="Main menu">
+          <button class="nav__item nav__item--active" aria-current="page">Dashboard</button>
           <button class="nav__item">Projects</button>
           <button class="nav__item">Vault Explorer</button>
           <button class="nav__item">Change Requests</button>
           <button class="nav__item">Reports</button>
           <button class="nav__item">Admin</button>
         </nav>
-        <div class="storage">
+        <div class="storage" role="status" aria-label="Vault storage usage">
           <p class="storage__label">Vault storage</p>
-          <div class="storage__bar">
+          <div class="storage__bar" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="68% storage used">
             <span style="width: 68%"></span>
           </div>
           <p class="storage__meta">6.2 TB of 9.1 TB used</p>
         </div>
       </aside>
 
-      <main class="main">
+      <main class="main" id="main-content">
         <header class="topbar">
           <div>
             <h1>Product Data Management</h1>
             <p>Centralize CAD files, revisions, and approvals across teams.</p>
           </div>
           <div class="topbar__actions">
-            <button class="button button--ghost">Sync CAD</button>
-            <button class="button button--primary">New Workflow</button>
+            <button class="button button--ghost" type="button">Sync CAD</button>
+            <button class="button button--primary" type="button">New Workflow</button>
           </div>
         </header>
 
-        <section class="hero">
+        <section class="hero" aria-label="Quick actions and vault activity">
           <div class="hero__panel">
             <h2>Quick actions</h2>
             <div class="hero__grid">
-              <button class="card">
+              <button class="card" type="button">
                 <span>Check-in batch</span>
                 <small>14 files ready</small>
               </button>
-              <button class="card">
+              <button class="card" type="button">
                 <span>Review changes</span>
                 <small>3 approvals pending</small>
               </button>
-              <button class="card">
+              <button class="card" type="button">
                 <span>Create ECO</span>
                 <small>Engineering change order</small>
               </button>
-              <button class="card">
+              <button class="card" type="button">
                 <span>Launch viewer</span>
                 <small>3D preview</small>
               </button>
@@ -69,14 +73,14 @@
           </div>
           <div class="hero__panel hero__panel--chart">
             <h2>Vault activity</h2>
-            <div class="chart">
-              <div class="chart__bar" style="--h: 52%"></div>
-              <div class="chart__bar" style="--h: 74%"></div>
-              <div class="chart__bar" style="--h: 62%"></div>
-              <div class="chart__bar" style="--h: 88%"></div>
-              <div class="chart__bar" style="--h: 46%"></div>
-              <div class="chart__bar" style="--h: 68%"></div>
-              <div class="chart__bar" style="--h: 80%"></div>
+            <div class="chart" role="img" aria-label="Bar chart showing vault activity over the past 7 periods">
+              <div class="chart__bar" style="--h: 52%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 74%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 62%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 88%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 46%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 68%" aria-hidden="true"></div>
+              <div class="chart__bar" style="--h: 80%" aria-hidden="true"></div>
             </div>
             <div class="chart__legend">
               <span>Revisions</span>
@@ -86,68 +90,72 @@
           </div>
         </section>
 
-        <section class="content-grid">
+        <section class="content-grid" aria-label="Projects and recent activity">
           <div class="panel">
             <div class="panel__header">
               <h3>Active projects</h3>
-              <button class="button button--small">View all</button>
+              <button class="button button--small" type="button">View all</button>
             </div>
-            <div class="table">
-              <div class="table__row table__row--header">
-                <span>Project</span>
-                <span>Status</span>
-                <span>Owner</span>
-                <span>Due</span>
-              </div>
-              <div class="table__row">
-                <span>EV Drivetrain Mk3</span>
-                <span class="status status--review">In review</span>
-                <span>J. Lim</span>
-                <span>Apr 28</span>
-              </div>
-              <div class="table__row">
-                <span>Packaging Line 12</span>
-                <span class="status status--active">Active</span>
-                <span>C. Patel</span>
-                <span>May 04</span>
-              </div>
-              <div class="table__row">
-                <span>Robotic Arm V2</span>
-                <span class="status status--hold">On hold</span>
-                <span>A. Rivera</span>
-                <span>May 18</span>
-              </div>
-            </div>
+            <table class="table" aria-label="Active projects">
+              <thead>
+                <tr class="table__row table__row--header">
+                  <th scope="col">Project</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Owner</th>
+                  <th scope="col">Due</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table__row">
+                  <td>EV Drivetrain Mk3</td>
+                  <td><span class="status status--review">In review</span></td>
+                  <td>J. Lim</td>
+                  <td>Apr 28</td>
+                </tr>
+                <tr class="table__row">
+                  <td>Packaging Line 12</td>
+                  <td><span class="status status--active">Active</span></td>
+                  <td>C. Patel</td>
+                  <td>May 04</td>
+                </tr>
+                <tr class="table__row">
+                  <td>Robotic Arm V2</td>
+                  <td><span class="status status--hold">On hold</span></td>
+                  <td>A. Rivera</td>
+                  <td>May 18</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div class="panel">
             <div class="panel__header">
               <h3>Recent file activity</h3>
-              <button class="button button--small">Open vault</button>
+              <button class="button button--small" type="button">Open vault</button>
             </div>
-            <div class="activity">
-              <div class="activity__item">
+            <ul class="activity" aria-label="Recent file activity">
+              <li class="activity__item">
                 <div>
                   <p class="activity__title">Motor housing.sldprt</p>
-                  <p class="activity__meta">Checked in by J. Lim · Rev C</p>
+                  <p class="activity__meta">Checked in by J. Lim &middot; Rev C</p>
                 </div>
                 <span class="status status--active">Approved</span>
-              </div>
-              <div class="activity__item">
+              </li>
+              <li class="activity__item">
                 <div>
                   <p class="activity__title">Assembly line layout.sldasm</p>
-                  <p class="activity__meta">Workflow update · 2 comments</p>
+                  <p class="activity__meta">Workflow update &middot; 2 comments</p>
                 </div>
                 <span class="status status--review">Needs review</span>
-              </div>
-              <div class="activity__item">
+              </li>
+              <li class="activity__item">
                 <div>
                   <p class="activity__title">Cooling manifold.sldprt</p>
                   <p class="activity__meta">Released to manufacturing</p>
                 </div>
                 <span class="status status--active">Released</span>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -201,48 +209,48 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
           </div>
         </section>
 
-        <section class="feature-grid">
+        <section class="feature-grid" aria-label="Workflow, vault explorer, and security">
           <div class="panel">
             <div class="panel__header">
-              <h3>Workflow & approvals</h3>
+              <h3>Workflow &amp; approvals</h3>
               <span class="status status--review">2 pending</span>
             </div>
-            <div class="workflow">
-              <div class="workflow__step workflow__step--done">
-                <span class="workflow__dot"></span>
+            <ol class="workflow" aria-label="Workflow steps">
+              <li class="workflow__step workflow__step--done">
+                <span class="workflow__dot" aria-hidden="true"></span>
                 <div>
                   <p class="workflow__title">Design complete</p>
-                  <p class="workflow__meta">CAD released · Rev C</p>
+                  <p class="workflow__meta">CAD released &middot; Rev C</p>
                 </div>
-              </div>
-              <div class="workflow__step workflow__step--active">
-                <span class="workflow__dot"></span>
+              </li>
+              <li class="workflow__step workflow__step--active">
+                <span class="workflow__dot" aria-hidden="true"></span>
                 <div>
                   <p class="workflow__title">Quality review</p>
                   <p class="workflow__meta">Awaiting sign-off from QA</p>
                 </div>
-              </div>
-              <div class="workflow__step">
-                <span class="workflow__dot"></span>
+              </li>
+              <li class="workflow__step">
+                <span class="workflow__dot" aria-hidden="true"></span>
                 <div>
                   <p class="workflow__title">Manufacturing release</p>
                   <p class="workflow__meta">Scheduled for Apr 22</p>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ol>
             <div class="panel__actions">
-              <button class="button button--small">Review queue</button>
-              <button class="button button--ghost button--small">Edit workflow</button>
+              <button class="button button--small" type="button">Review queue</button>
+              <button class="button button--ghost button--small" type="button">Edit workflow</button>
             </div>
           </div>
 
           <div class="panel">
             <div class="panel__header">
               <h3>Vault explorer</h3>
-              <button class="button button--small">Open</button>
+              <button class="button button--small" type="button">Open</button>
             </div>
-            <div class="vault-list">
-              <div class="vault-item">
+            <ul class="vault-list" aria-label="Vault files">
+              <li class="vault-item">
                 <div>
                   <p class="vault-item__title">Battery enclosure.sldasm</p>
                   <p class="vault-item__meta">/EV Drivetrain/Assemblies</p>
@@ -251,8 +259,8 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
                   <span class="tag">Rev D</span>
                   <span class="tag tag--success">Checked in</span>
                 </div>
-              </div>
-              <div class="vault-item">
+              </li>
+              <li class="vault-item">
                 <div>
                   <p class="vault-item__title">Cooling plate.sldprt</p>
                   <p class="vault-item__meta">/Thermal/Parts</p>
@@ -261,8 +269,8 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
                   <span class="tag">Rev B</span>
                   <span class="tag tag--warning">Locked</span>
                 </div>
-              </div>
-              <div class="vault-item">
+              </li>
+              <li class="vault-item">
                 <div>
                   <p class="vault-item__title">Harness routing.sldasm</p>
                   <p class="vault-item__meta">/Harness/Assemblies</p>
@@ -271,19 +279,19 @@ INSERT INTO vault_files (id, file_name, file_type, revision, status, owner, last
                   <span class="tag">Rev A</span>
                   <span class="tag tag--info">In work</span>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
 
           <div class="panel">
             <div class="panel__header">
-              <h3>Security & compliance</h3>
+              <h3>Security &amp; compliance</h3>
               <span class="status status--active">Audit ready</span>
             </div>
             <div class="security-grid">
               <div class="security-card">
                 <p class="security-card__title">Role-based access</p>
-                <p class="security-card__meta">28 roles · 6 departments</p>
+                <p class="security-card__meta">28 roles &middot; 6 departments</p>
               </div>
               <div class="security-card">
                 <p class="security-card__title">Traceable revisions</p>
