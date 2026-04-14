@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="SolidWorks-like Product Data Management dashboard for centralizing CAD files, revisions, and approvals." />
     <meta name="theme-color" content="#0b1c2d" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%230b1c2d'/><text x='50' y='68' font-size='48' font-weight='bold' text-anchor='middle' fill='%23e5f1ff' font-family='system-ui'>PDM</text></svg>" />
     <title>SolidWorks-like PDM</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -28,6 +29,15 @@
           <button class="nav__item">Reports</button>
           <button class="nav__item">Admin</button>
         </nav>
+
+        <div class="user-profile">
+          <div class="user-profile__avatar" aria-hidden="true">PL</div>
+          <div class="user-profile__info">
+            <p class="user-profile__name">Peter Lecy</p>
+            <p class="user-profile__role">Vault Admin</p>
+          </div>
+        </div>
+
         <div class="storage" role="status" aria-label="Vault storage usage">
           <p class="storage__label">Vault storage</p>
           <div class="storage__bar" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="68% storage used">
@@ -44,6 +54,20 @@
             <p>Centralize CAD files, revisions, and approvals across teams.</p>
           </div>
           <div class="topbar__actions">
+            <div class="search" role="search">
+              <label for="vault-search" class="sr-only">Search vault</label>
+              <input
+                id="vault-search"
+                class="search__input"
+                type="search"
+                placeholder="Search files, projects..."
+                autocomplete="off"
+              />
+            </div>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <span class="theme-toggle__icon theme-toggle__icon--light" aria-hidden="true">&#9788;</span>
+              <span class="theme-toggle__icon theme-toggle__icon--dark" aria-hidden="true">&#9790;</span>
+            </button>
             <button class="button button--ghost" type="button">Sync CAD</button>
             <button class="button button--primary" type="button">New Workflow</button>
           </div>
